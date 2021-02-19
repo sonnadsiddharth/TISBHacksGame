@@ -13,6 +13,8 @@ public class playerMovement : MonoBehaviour
     public AudioSource woodChop2;
     public AudioSource woodChop3;
 
+    public Text score;
+
     float treeScore = 0;
 
     float h;
@@ -37,10 +39,11 @@ public class playerMovement : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision) 
     {
         Destroy(collision.gameObject);
+
         treeScore += 1;
+        score.text = treeScore.ToString();
 
         int num = Random.Range(1, 4);
-        
         if (num == 1) {
             woodChop1.Play();
             Debug.Log(num);
@@ -59,7 +62,5 @@ public class playerMovement : MonoBehaviour
     {
         body.velocity = new Vector2(h * speed, v * speed);
     }
-
-}
 
 }
