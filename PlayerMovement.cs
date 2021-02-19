@@ -9,7 +9,9 @@ public class playerMovement : MonoBehaviour
     Rigidbody2D body;
     public float speed = 10f;
 
-    public AudioSource woodChop;
+    public AudioSource woodChop1;
+    public AudioSource woodChop2;
+    public AudioSource woodChop3;
 
     float treeScore = 0;
 
@@ -36,12 +38,28 @@ public class playerMovement : MonoBehaviour
     {
         Destroy(collision.gameObject);
         treeScore += 1;
-        woodChop.Play();
+
+        int num = Random.Range(1, 4);
+        
+        if (num == 1) {
+            woodChop1.Play();
+            Debug.Log(num);
+        }
+        if (num == 2) {
+            woodChop2.Play();
+            Debug.Log(num);
+        }
+        if (num == 3) {
+            woodChop3.Play();
+            Debug.Log(num);
+        }
     }
 
     void FixedUpdate()
     {
         body.velocity = new Vector2(h * speed, v * speed);
     }
+
+}
 
 }
