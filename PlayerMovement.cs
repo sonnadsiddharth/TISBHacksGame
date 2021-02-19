@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class playerMovement : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class playerMovement : MonoBehaviour
     void Start() 
     {
         body = GetComponent<Rigidbody2D>();
+
     }
 
     void Update()
@@ -32,16 +34,23 @@ public class playerMovement : MonoBehaviour
 
         if (treeScore == 8) 
         {
-            Debug.Log("YAY");
+            int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+            if (SceneManager.sceneCountInBuildSettings > nextSceneIndex)
+            {
+                SceneManager.LoadScene(nextSceneIndex);
+            }
         }
     }
 
     void OnCollisionEnter2D(Collision2D collision) 
     {
+
         Destroy(collision.gameObject);
 
         treeScore += 1;
         score.text = treeScore.ToString();
+
+        speed += -1;
 
         int num = Random.Range(1, 4);
         if (num == 1) {
