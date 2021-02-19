@@ -10,6 +10,10 @@ public class playerMovement : MonoBehaviour
     Rigidbody2D body;
     public float speed = 10f;
 
+    public float timeLeft = 100;
+    public float OGtimeLeft = 100;
+    public Slider timeBar;
+
     public AudioSource woodChop1;
     public AudioSource woodChop2;
     public AudioSource woodChop3;
@@ -40,6 +44,17 @@ public class playerMovement : MonoBehaviour
                 SceneManager.LoadScene(nextSceneIndex);
             }
         }
+
+        timeLeft -= Time.deltaTime;
+
+        timeBar.maxValue = OGtimeLeft;
+        timeBar.value = timeLeft;
+
+        if (timeLeft < 0)
+        {
+            SceneManager.LoadScene("GameOver");
+        }
+
     }
 
     void OnCollisionEnter2D(Collision2D collision) 
@@ -48,7 +63,6 @@ public class playerMovement : MonoBehaviour
         Destroy(collision.gameObject);
 
         treeScore += 1;
-        score.text = treeScore.ToString();
 
         speed += -1;
 
