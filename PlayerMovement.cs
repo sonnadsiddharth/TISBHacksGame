@@ -94,6 +94,9 @@ public class playerMovement : MonoBehaviour
             woodChop3.Play();
             Debug.Log(num);
         }
+
+        //Small bonus for timer bar if you get a tree
+        timeLeft += Time.deltaTime * 0.5f;
     }
 
     void FixedUpdate()
