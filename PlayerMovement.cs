@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+
+
 public class playerMovement : MonoBehaviour
 {
 
@@ -16,6 +18,7 @@ public class playerMovement : MonoBehaviour
     public float OGtimeLeft = 100;
     public Slider timeBar;
 
+
     //Vars for audio
     public AudioSource woodChop1;
     public AudioSource woodChop2;
@@ -27,9 +30,13 @@ public class playerMovement : MonoBehaviour
     //More vars for movement
     float h;
     float v;
+
+    //Vars for medal system
+    float medalNumber;
      
     void Start() 
     {
+
         //Get rigidbody component
         body = GetComponent<Rigidbody2D>();
 
@@ -37,7 +44,7 @@ public class playerMovement : MonoBehaviour
 
     void Update()
     {
-        
+
         //Get player input
         h = Input.GetAxisRaw("Horizontal");
         v = Input.GetAxisRaw("Vertical");
@@ -45,12 +52,38 @@ public class playerMovement : MonoBehaviour
         //Check if player can go to the next level
         if (treeScore == 8) 
         {
+
+            //Checking if eligible for silver, Medal System
+            if (timeLeft + (OGtimeLeft * 1.5) > (OGtimeLeft-1)) 
+            {
+                
+                //Checking if eligible for gold, Medal System
+                if (timeLeft + ((OGtimeLeft/3)) > (OGtimeLeft-1)) 
+                {
+                    medalNumber = 1;
+                    Debug.Log(medalNumber);
+                }
+                else 
+                {
+                    medalNumber = 2;
+                    Debug.Log(medalNumber);
+                }
+            }
+            else 
+            {
+                medalNumber = 3;
+                Debug.Log(medalNumber);
+            }
+
+            //Switching to next scene / level
             int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
             if (SceneManager.sceneCountInBuildSettings > nextSceneIndex)
             {
                 SceneManager.LoadScene(nextSceneIndex);
             }
         }
+
+
 
         //Basic timer
         timeLeft -= Time.deltaTime;
